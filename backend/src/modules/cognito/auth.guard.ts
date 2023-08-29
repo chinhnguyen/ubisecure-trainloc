@@ -5,7 +5,6 @@ import {
   Logger,
   UnauthorizedException
 } from '@nestjs/common'
-import { Observable } from 'rxjs'
 import { Request } from 'express'
 import { CognitoService } from 'src/modules/cognito/cognito.service'
 
@@ -22,7 +21,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException()
     }
     try {
-      const user = await this.cognitoService.loadUserByToken(token)
+      const user = await this.cognitoService.verifyUserByToken(token)
       if (!user) {
         throw new UnauthorizedException()
       }

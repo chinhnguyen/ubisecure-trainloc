@@ -14,7 +14,7 @@ import {
 import { AccountCircle } from '@mui/icons-material'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { TypedRoute } from '../../models/TypedRoute'
-import { useLoadCurrentUser, useCurrentUser } from '../../hooks/SessionHooks'
+import { useLoadCurrentUser, useSignOut } from '../../hooks/SessionHooks'
 
 const titles = {
   [TypedRoute.Home]: 'Home',
@@ -27,7 +27,7 @@ function MainLayout() {
   const { isLoading: isLoadingUser, isError: errorLoadingUser } =
     useLoadCurrentUser()
 
-  const { signOut } = useCurrentUser()
+  const signOut = useSignOut()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -53,10 +53,6 @@ function MainLayout() {
     navigate(TypedRoute.Account)
     setAnchorEl(null)
   }
-
-  useEffect(() => {
-    console.log(isLoadingUser, errorLoadingUser)
-  }, [isLoadingUser, errorLoadingUser])
 
   return (
     <Box sx={{ flexGrow: 1 }}>

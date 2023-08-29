@@ -10,7 +10,7 @@ resource "aws_cognito_user_pool" "user_pool" {
       priority = 2
     }
   }
-
+ 
   auto_verified_attributes = ["email"]
 }
 
