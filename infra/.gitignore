@@ -36,3 +36,5 @@ terraform.rc
 .vscode/*.log
 
 .DS_Store
+
+wsapi.zip

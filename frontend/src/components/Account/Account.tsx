@@ -15,6 +15,19 @@ function Account() {
     <Box className="account">
       <TextField
         id="outlined-basic"
+        label="Username"
+        variant="outlined"
+        value={user?.username}
+        disabled={true}
+        InputLabelProps={{
+          shrink: true
+        }}
+        InputProps={{
+          readOnly: true
+        }}
+      />
+      <TextField
+        id="outlined-basic"
         label="First Name"
         variant="outlined"
         value={user?.firstName}

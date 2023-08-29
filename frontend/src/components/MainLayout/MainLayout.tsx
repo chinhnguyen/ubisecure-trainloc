@@ -54,6 +54,11 @@ function MainLayout() {
     setAnchorEl(null)
   }
 
+  const handleTrainsList = () => {
+    navigate(TypedRoute.Trains)
+    setAnchorEl(null)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -87,6 +92,7 @@ function MainLayout() {
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
+            <MenuItem onClick={handleTrainsList}>Trains List</MenuItem>
             <MenuItem onClick={handleAccount}>My account</MenuItem>
             <MenuItem onClick={handleLogout}>Log out</MenuItem>
           </Menu>

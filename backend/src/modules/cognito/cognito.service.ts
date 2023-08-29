@@ -16,10 +16,12 @@ export class CognitoService {
     const {
       given_name: firstName,
       family_name: lastName,
-      email
+      email,
+      'cognito:username': username
     } = await this.verifier.verify(token)
 
     return {
+      username,
       firstName,
       lastName,
       email
