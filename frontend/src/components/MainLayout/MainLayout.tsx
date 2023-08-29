@@ -7,12 +7,14 @@ import {
   MenuItem,
   Toolbar,
   Typography,
-  Menu
+  Menu,
+  LinearProgress,
+  Alert
 } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
-import { useCurrentUser } from '../Auth/AuthHooks'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { TypedRoute } from '../../models/TypedRoute'
+import { useLoadCurrentUser, useCurrentUser } from '../../hooks/SessionHooks'
 
 const titles = {
   [TypedRoute.Home]: 'Home',
@@ -22,7 +24,10 @@ const titles = {
 
 function MainLayout() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [_, signOut] = useCurrentUser()
+  const { isLoading: isLoadingUser, isError: errorLoadingUser } =
+    useLoadCurrentUser()
+
+  const { signOut } = useCurrentUser()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -49,6 +54,10 @@ function MainLayout() {
     setAnchorEl(null)
   }
 
+  useEffect(() => {
+    console.log(isLoadingUser, errorLoadingUser)
+  }, [isLoadingUser, errorLoadingUser])
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -63,6 +72,7 @@ function MainLayout() {
             aria-haspopup="true"
             onClick={handleMenuClick}
             color="inherit"
+            disabled={isLoadingUser}
           >
             <AccountCircle />
           </IconButton>
@@ -86,6 +96,13 @@ function MainLayout() {
           </Menu>
         </Toolbar>
       </AppBar>
+      {isLoadingUser === true && <LinearProgress />}
+      {errorLoadingUser === true && (
+        <Alert severity="error">
+          Error loading user. You might need to logout and login again to solve
+          the problem.
+        </Alert>
+      )}
       <Outlet />
     </Box>
   )

@@ -1,5 +1,6 @@
-import { Controller, Get, UseGuards } from '@nestjs/common'
-import { UsersService } from './users.service'
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
+import { Request } from 'express'
+import User from 'src/models/User'
 import { AuthGuard } from 'src/modules/cognito/auth.guard'
 
 @Controller({
@@ -8,10 +9,8 @@ import { AuthGuard } from 'src/modules/cognito/auth.guard'
 })
 @UseGuards(AuthGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
-
   @Get('/current')
-  getCurrentUser(): string {
-    return this.usersService.loadCurrentUser()
+  getCurrentUser(@Req() request: Request): User {
+    return request['user']
   }
 }

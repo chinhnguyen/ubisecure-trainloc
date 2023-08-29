@@ -1,5 +1,8 @@
+import { useCurrentUser } from "../../hooks/SessionHooks"
+
 function Account() {
-  return <h1>Account</h1>
+  const { currentUser } = useCurrentUser()
+  return <h1>{currentUser?.firstName}</h1>
 }
 
 export default Account

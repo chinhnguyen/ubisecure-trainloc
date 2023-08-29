@@ -2,3 +2,4 @@
 
 ###
 GET {{base_url}}/users/current HTTP/1.1
+Authorization: Bearer sometoken
