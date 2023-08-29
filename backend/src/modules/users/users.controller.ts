@@ -1,8 +1,12 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, UseGuards } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { version } from 'os'
+import { AuthGuard } from 'src/modules/cognito/auth.guard'
 
-@Controller('/users')
+@Controller({
+  path: '/users',
+  version: '1'
+})
+@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

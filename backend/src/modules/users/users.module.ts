@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common'
 import { UsersController } from './users.controller'
 import { UsersService } from './users.service'
+import { CognitoModule } from 'src/modules/cognito/cognito.module'
 
 @Module({
-  imports: [],
+  imports: [CognitoModule],
   controllers: [UsersController],
   providers: [UsersService]
 })
