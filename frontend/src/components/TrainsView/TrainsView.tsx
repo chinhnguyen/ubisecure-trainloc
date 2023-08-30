@@ -18,7 +18,7 @@ function TrainsView() {
   const trains = useLiveTrainsInfo()
 
   const [tabIndex, setTabIndex] = useState(0)
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue)
   }
   return (
@@ -27,7 +27,7 @@ function TrainsView() {
         <Tab label="Table View" />
         <Tab label="Map View" />
       </Tabs>
-      <TableContainer component={Paper} hidden={tabIndex != 0}>
+      <TableContainer component={Paper} hidden={tabIndex !== 0}>
         <Table>
           <TableHead>
             <TableRow>
@@ -39,10 +39,7 @@ function TrainsView() {
           </TableHead>
           <TableBody>
             {trains.map((train) => (
-              <TableRow
-                key={train.trainNumber}
-                
-              >
+              <TableRow key={train.trainNumber}>
                 <TableCell>{train.trainNumber}</TableCell>
                 <TableCell align="right">{train.latitude}</TableCell>
                 <TableCell align="right">{train.longitude}</TableCell>

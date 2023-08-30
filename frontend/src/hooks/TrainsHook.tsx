@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Train from '../models/Train'
 import { RootState } from '../store'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 import { upsertTrain } from '../store/Trains'
 
 export const useLiveTrainsInfo = (): Train[] => {
@@ -33,7 +33,7 @@ export const useLiveTrainsInfo = (): Train[] => {
     return () => {
       ws?.close()
     }
-  }, [])
+  }, [updateTrain])
 
   return Object.values(trains)
 }
