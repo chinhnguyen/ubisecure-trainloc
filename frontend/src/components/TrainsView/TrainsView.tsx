@@ -1,18 +1,9 @@
-import {
-  Box,
-  Paper,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Tabs,
-  Tab
-} from '@mui/material'
-import { useLiveTrainsInfo } from '../../hooks/TrainsHook'
+import { Box, Tabs, Tab } from '@mui/material'
+import { useLiveTrainsInfo } from '../../hooks/LiveTrainsInfoHook'
 import './TrainsView.scss'
 import { useState } from 'react'
+import TrainsTableView from './TrainsTableView'
+import TrainsMapView from './TrainsMapView'
 
 function TrainsView() {
   const trains = useLiveTrainsInfo()
@@ -23,32 +14,14 @@ function TrainsView() {
   }
   return (
     <Box className="trainsview">
-      <Tabs value={tabIndex} onChange={handleTabChange}>
-        <Tab label="Table View" />
-        <Tab label="Map View" />
-      </Tabs>
-      <TableContainer component={Paper} hidden={tabIndex !== 0}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Train number</TableCell>
-              <TableCell align="right">Latitude</TableCell>
-              <TableCell align="right">Longitude</TableCell>
-              <TableCell align="right">Last Update</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {trains.map((train) => (
-              <TableRow key={train.trainNumber}>
-                <TableCell>{train.trainNumber}</TableCell>
-                <TableCell align="right">{train.latitude}</TableCell>
-                <TableCell align="right">{train.longitude}</TableCell>
-                <TableCell align="right">{train.updatedAt}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={tabIndex} onChange={handleTabChange}>
+          <Tab label="Table View " />
+          <Tab label="Map View" />
+        </Tabs>
+      </Box>
+      <TrainsTableView trains={trains} hidden={tabIndex !== 0} />
+      <TrainsMapView trains={trains} hidden={tabIndex !== 1} />
     </Box>
   )
 }

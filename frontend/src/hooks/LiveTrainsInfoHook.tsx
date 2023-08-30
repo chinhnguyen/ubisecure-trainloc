@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Train from '../models/Train'
 import { RootState } from '../store'
 import { useCallback, useEffect } from 'react'
-import { upsertTrain } from '../store/Trains'
+import { upsertTrain } from '../store/LiveTrains'
 
 export const useLiveTrainsInfo = (): Train[] => {
   const trains = useSelector<RootState>(
-    (state) => state.trains.trains
+    (state) => state.liveTrains.trains
   ) as Record<string, Train>
 
   const dispatch = useDispatch()
@@ -22,6 +22,9 @@ export const useLiveTrainsInfo = (): Train[] => {
     ws.onopen = () => {
       console.debug('WS', 'connected')
     }
+    ws.onclose = () => {
+      console.debug('WS', 'closed')
+    }
     ws.onmessage = (e) => {
       console.debug('WS', 'messages', e.data)
       const train = JSON.parse(e.data) as Train
@@ -31,9 +34,9 @@ export const useLiveTrainsInfo = (): Train[] => {
       console.error('WS', 'error', e)
     }
     return () => {
-      ws?.close()
+      if (ws?.CONNECTING) ws?.close()
     }
-  }, [updateTrain])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return Object.values(trains)
 }

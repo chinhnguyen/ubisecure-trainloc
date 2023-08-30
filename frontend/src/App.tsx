@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.scss'
-import Home from './components/NotFound'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import AuthContainer from './components/Auth/AuthContainer'
 

@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Train from '../models/Train'
 
-type TrainsState = {
+type LiveTrainsState = {
   trains: Record<string, Train>
 }
 
-const initialState: TrainsState = {
+const initialState: LiveTrainsState = {
   trains: {}
 }
 
@@ -21,4 +21,4 @@ const slice = createSlice({
 
 export const { upsertTrain } = slice.actions
 
-export const trainsReducer = slice.reducer
+export const liveTrainsReducer = slice.reducer

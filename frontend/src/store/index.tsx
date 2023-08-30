@@ -2,12 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { restApi } from '../apis'
 import { authReducer } from './Auth'
-import { trainsReducer } from './Trains'
+import { liveTrainsReducer } from './LiveTrains'
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    trains: trainsReducer,
+    liveTrains: liveTrainsReducer,
     [restApi.reducerPath]: restApi.reducer
   },
   middleware: (getDefaultMiddleware) =>

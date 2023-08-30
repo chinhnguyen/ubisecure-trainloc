@@ -1,12 +1,12 @@
 @base_url=http://localhost:3001/api/v1
 
-@trainNumber=1235
+@trainNumber=1237
 ###
 PUT {{base_url}}/trains/{{trainNumber}}/location HTTP/1.1
 Authorization: Bearer sometoken
 Content-Type: application/json
 
 {
- "latitude": 123, 
- "longitude": 123
+ "latitude": 60.97639, 
+ "longitude": 25.662796
 }
