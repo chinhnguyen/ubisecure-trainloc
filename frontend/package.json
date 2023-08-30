@@ -19,6 +19,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "aws-amplify": "^5.3.10",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
@@ -54,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/googlemaps": "^3.43.3"
+    "@types/googlemaps": "^3.43.3",
+    "@types/lodash": "^4.14.197"
   }
 }
