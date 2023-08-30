@@ -8,3 +8,5 @@ locals {
   environment = terraform.workspace
   app_name    = "traintracker-${local.environment}"
 }
+
+data "aws_region" "current" {}

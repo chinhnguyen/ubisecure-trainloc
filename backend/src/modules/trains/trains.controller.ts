@@ -1,18 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Put,
-  Req,
-  Res,
-  UseGuards
-} from '@nestjs/common'
-import { Request } from 'express'
+import { Body, Controller, Param, Put } from '@nestjs/common'
 import TrainLocation from 'src/models/TrainLocation'
-import User from 'src/models/User'
-import { AuthGuard } from 'src/modules/cognito/auth.guard'
-import { CognitoService } from 'src/modules/cognito/cognito.service'
 import { WebSocketService } from 'src/modules/ws/ws.service'
 
 @Controller({
@@ -27,6 +14,7 @@ export class TrainsController {
     @Param('id') trainNumber: number,
     @Body() trainLocation: TrainLocation
   ): Promise<void> {
+    console.log(trainLocation)
     await this.wsService.publishTrainLocation(trainNumber, trainLocation)
   }
 }

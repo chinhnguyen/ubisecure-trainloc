@@ -1,3 +1,20 @@
+resource "aws_dynamodb_table" "ws_api_clients_table" {
+  name           = "${local.app_name}-ws-clients"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = "30"
+  write_capacity = "30"
+  hash_key       = "connectionId"
+
+  attribute {
+    name = "connectionId"
+    type = "S"
+  }
+  ttl {
+    attribute_name = "expiresAt"
+    enabled        = true
+  }
+}
+
 data "archive_file" "ws_api_zip" {
   type        = "zip"
   source_file = "${path.module}/../wsapi/dist/index.js"
@@ -21,6 +38,16 @@ data "aws_iam_policy_document" "ws_api_lambda_ipd" {
     ]
     effect    = "Allow"
     resources = ["arn:aws:execute-api:*:*:*"]
+  }
+
+  statement {
+    actions = [
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:DeleteItem",
+    ]
+    effect    = "Allow"
+    resources = [aws_dynamodb_table.ws_api_clients_table.arn]
   }
 }
 
@@ -58,14 +85,15 @@ resource "aws_lambda_function" "ws_api_lambda_fn" {
   function_name    = "${local.app_name}-api-lambda"
   role             = aws_iam_role.ws_api_lambda_role.arn
   handler          = "index.handler"
-  runtime          = "nodejs18.x"
+  runtime          = "nodejs16.x"
   source_code_hash = data.archive_file.ws_api_zip.output_base64sha256
 
-  # environment {
-  #   variables = {
-  #     TABLE_NAME = aws_dynamodb_table.ws_messenger_clients_table.name
-  #   }
-  # }
+  environment {
+    variables = {
+      AWS_TABLE_REGION = data.aws_region.current.name
+      AWS_TABLE_NAME   = aws_dynamodb_table.ws_api_clients_table.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "ws_api_lambda_logs" {
