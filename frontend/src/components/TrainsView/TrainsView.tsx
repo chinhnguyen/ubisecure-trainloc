@@ -6,17 +6,29 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody
+  TableBody,
+  Tabs,
+  Tab
 } from '@mui/material'
 import { useLiveTrainsInfo } from '../../hooks/TrainsHook'
 import './TrainsView.scss'
+import { useState } from 'react'
 
 function TrainsView() {
   const trains = useLiveTrainsInfo()
+
+  const [tabIndex, setTabIndex] = useState(0)
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabIndex(newValue)
+  }
   return (
     <Box className="trainsview">
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Tabs value={tabIndex} onChange={handleTabChange}>
+        <Tab label="Table View" />
+        <Tab label="Map View" />
+      </Tabs>
+      <TableContainer component={Paper} hidden={tabIndex != 0}>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>Train number</TableCell>
@@ -29,11 +41,9 @@ function TrainsView() {
             {trains.map((train) => (
               <TableRow
                 key={train.trainNumber}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                
               >
-                <TableCell component="th" scope="row">
-                  {train.trainNumber}
-                </TableCell>
+                <TableCell>{train.trainNumber}</TableCell>
                 <TableCell align="right">{train.latitude}</TableCell>
                 <TableCell align="right">{train.longitude}</TableCell>
                 <TableCell align="right">{train.updatedAt}</TableCell>

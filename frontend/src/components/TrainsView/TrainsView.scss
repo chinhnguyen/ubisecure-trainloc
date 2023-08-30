@@ -2,4 +2,8 @@
 
 .trainsview {
   margin: $spacing-largest;
+
+  .MuiPaper-root {
+    margin-top: $spacing-medium;
+  }
 }
