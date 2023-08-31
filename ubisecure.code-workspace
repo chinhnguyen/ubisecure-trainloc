@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "backend"
+		},
+		{
+			"path": "frontend"
+		},
+		{
+			"path": "infra"
+		},
+		{
+			"path": "feeder"
+		},
+		{
+			"path": "wsapi"
+		}
+	],
+	"settings": {
+		"jest.disabledWorkspaceFolders": [
+			"infra",
+			"wsapi",
+			"feeder"
+		]
+	}
+}

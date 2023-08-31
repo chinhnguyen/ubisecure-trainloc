@@ -1,4 +1,4 @@
-import { Injectable, Logger, UnauthorizedException } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { CognitoJwtVerifier } from 'aws-jwt-verify'
 
 import User from 'src/dtos/User'
@@ -6,7 +6,6 @@ import { Permission } from 'src/modules/auth/permission'
 
 @Injectable()
 export class AuthService {
-  private readonly logger = new Logger(AuthService.name)
   private readonly verifier = CognitoJwtVerifier.create({
     userPoolId: process.env.AWS_COGNITO_ID,
     tokenUse: 'id',

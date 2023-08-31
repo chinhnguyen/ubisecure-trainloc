@@ -1,16 +1,13 @@
 import {
   ApiGatewayManagementApiClient,
-  GetConnectionCommand,
   PostToConnectionCommand
 } from '@aws-sdk/client-apigatewaymanagementapi'
 import {
   DeleteItemCommand,
   DynamoDBClient,
-  QueryCommand,
   ScanCommand
 } from '@aws-sdk/client-dynamodb'
 import { Injectable, Logger } from '@nestjs/common'
-import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import TrainLocation from 'src/dtos/TrainLocation'
 
 @Injectable()
