@@ -5,14 +5,20 @@ import {
   Logger,
   UnauthorizedException
 } from '@nestjs/common'
+import { Reflector } from '@nestjs/core'
 import { Request } from 'express'
 import { AuthService } from 'src/modules/auth/auth.service'
+import { Permission } from 'src/modules/auth/permission'
+import { REQUIRED_PERMISSIONS_KEY } from 'src/modules/auth/permissions.decorator'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   private readonly logger = new Logger(AuthGuard.name)
 
-  constructor(private readonly cognitoService: AuthService) {}
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly authService: AuthService
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest()
@@ -21,7 +27,13 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException()
     }
     try {
-      const user = await this.cognitoService.verifyUserByToken(token)
+      const requiredPermissions =
+        this.reflector.getAllAndOverride<Permission[]>(
+          REQUIRED_PERMISSIONS_KEY,
+          [context.getHandler(), context.getClass()]
+        ) ?? []
+
+      const user = await this.authService.authUser(token, requiredPermissions)
       if (!user) {
         throw new UnauthorizedException()
       }

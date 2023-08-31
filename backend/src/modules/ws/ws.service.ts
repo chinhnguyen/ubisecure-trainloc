@@ -11,7 +11,7 @@ import {
 } from '@aws-sdk/client-dynamodb'
 import { Injectable, Logger } from '@nestjs/common'
 import { CognitoJwtVerifier } from 'aws-jwt-verify'
-import TrainLocation from 'src/models/TrainLocation'
+import TrainLocation from 'src/dtos/TrainLocation'
 
 @Injectable()
 export class WebSocketService {

@@ -10,7 +10,19 @@ resource "aws_cognito_user_pool" "user_pool" {
       priority = 2
     }
   }
- 
+
+  schema {
+    name                     = "permissions"
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true
+    required                 = false
+    string_attribute_constraints {
+      min_length = 0
+      max_length = 2048
+    }
+  }
+
   auto_verified_attributes = ["email"]
 }
 
