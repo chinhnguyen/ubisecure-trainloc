@@ -6,13 +6,13 @@ import {
   UnauthorizedException
 } from '@nestjs/common'
 import { Request } from 'express'
-import { CognitoService } from 'src/modules/cognito/cognito.service'
+import { AuthService } from 'src/modules/auth/auth.service'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   private readonly logger = new Logger(AuthGuard.name)
 
-  constructor(private readonly cognitoService: CognitoService) {}
+  constructor(private readonly cognitoService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest()

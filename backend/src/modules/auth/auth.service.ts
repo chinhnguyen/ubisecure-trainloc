@@ -4,8 +4,8 @@ import { CognitoJwtVerifier } from 'aws-jwt-verify'
 import User from 'src/models/User'
 
 @Injectable()
-export class CognitoService {
-  private readonly logger = new Logger(CognitoService.name)
+export class AuthService {
+  private readonly logger = new Logger(AuthService.name)
   private readonly verifier = CognitoJwtVerifier.create({
     userPoolId: process.env.AWS_COGNITO_ID,
     tokenUse: 'id',

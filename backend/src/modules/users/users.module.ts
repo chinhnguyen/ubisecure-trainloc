@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { UsersController } from './users.controller'
-import { CognitoModule } from 'src/modules/cognito/cognito.module'
+import { AuthModule } from 'src/modules/auth/auth.module'
 
 @Module({
-  imports: [CognitoModule],
+  imports: [AuthModule],
   controllers: [UsersController],
   providers: []
 })
