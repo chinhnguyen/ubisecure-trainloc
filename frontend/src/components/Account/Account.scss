@@ -1,12 +1,22 @@
 @use '../../scss/variables.scss' as *;
 
 .account {
-  margin: $spacing-largest auto;
+  margin: $spacing-large auto;
   display: flex;
   flex-direction: column;
   max-width: $formfield-max-width;
 
-  .MuiTextField-root, .MuiAlert-root {
+  .MuiTextField-root,
+  .MuiAlert-root {
+    margin-bottom: $spacing-medium;
+  }
+
+  .MuiDivider-root {
+    margin-bottom: $spacing-large;
+    margin-top: $spacing-large;
+  }
+
+  h5 {
     margin-bottom: $spacing-medium;
   }
 }

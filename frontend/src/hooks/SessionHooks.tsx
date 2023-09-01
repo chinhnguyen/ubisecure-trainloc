@@ -27,7 +27,7 @@ export const useLoadCurrentUser = (): {
         .getJwtToken()
       if (token) {
         dispatch(setToken(token))
-        const { data: user } = await getCurrentUser(token)
+        const { data: user } = await getCurrentUser()
         if (user) {
           dispatch(setCurrentUser(user))
         }

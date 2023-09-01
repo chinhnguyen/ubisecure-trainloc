@@ -10,6 +10,7 @@ export class EmailService {
 
   async sendInvitation(toEmail: string): Promise<void> {
     this.logger.debug(`Sending invitation to ${toEmail} ...`)
+    const link = `${process.env.SIGNUP_BASE_URL}?action=signup&email=${toEmail}`
     const params = {
       Content: {
         Simple: {
@@ -18,12 +19,12 @@ export class EmailService {
           },
           Body: {
             Text: {
-              Data: `Create your account by clicking on this link ${process.env.SIGNUP_LINK}`
+              Data: `Create your account by clicking on this link ${link}`
             }
           }
         }
       },
-      FromEmailAddress: 'nguyen.trungchinh@gmail.com',
+      FromEmailAddress: process.env.AWS_SES_FROM_EMAIL,
       Destination: {
         ToAddresses: [toEmail]
       }
