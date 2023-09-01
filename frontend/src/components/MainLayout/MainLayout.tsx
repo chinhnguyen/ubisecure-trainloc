@@ -12,7 +12,12 @@ import {
   Alert
 } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useSearchParams
+} from 'react-router-dom'
 import { TypedRoute } from '../../models/TypedRoute'
 import { useLoadCurrentUser, useSignOut } from '../../hooks/SessionHooks'
 
@@ -58,6 +63,13 @@ function MainLayout() {
     navigate(TypedRoute.Trains)
     setAnchorEl(null)
   }
+
+  const [searchParams] = useSearchParams()
+  useEffect(() => {
+    if (searchParams.get('action') === 'signup') {
+      signOut()
+    }
+  }, [searchParams])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
