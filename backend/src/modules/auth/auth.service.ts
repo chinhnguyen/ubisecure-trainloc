@@ -40,4 +40,5 @@ export class AuthService {
       email
     } as User
   }
+
 }

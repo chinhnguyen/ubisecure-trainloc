@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TrainsController } from './trains.controller'
-import { WebSocketModule } from 'src/modules/ws/ws.module'
+import { CommModule } from 'src/modules/comm/comm.module'
 import { AuthModule } from 'src/modules/auth/auth.module'
 
 @Module({
-  imports: [AuthModule, WebSocketModule],
+  imports: [AuthModule, CommModule],
   controllers: [TrainsController],
   providers: []
 })

@@ -3,7 +3,7 @@ import TrainLocation from 'src/dtos/TrainLocation'
 import { AuthGuard } from 'src/modules/auth/auth.guard'
 import { Permission } from 'src/modules/auth/permission'
 import { RequiredPermissions } from 'src/modules/auth/permissions.decorator'
-import { WebSocketService } from 'src/modules/ws/ws.service'
+import { WebSocketService } from 'src/modules/comm/ws.service'
 
 @Controller({
   path: '/trains',
